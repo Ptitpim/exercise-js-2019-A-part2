@@ -19,12 +19,13 @@ app.put('/todos/:id', (req, res) => {
 });
 
 app.get('/todos/:id', (req, res) => {
+  if (req.params.id === 'all') {
+    res.send(todos);
+    return;
+  }
+
   const todoFound = todos.filter(todo => (todo.id === req.params.id))[0];
   res.send(todoFound ? todoFound : 'NOT FOUND');
-});
-
-app.get('/todos/all', (req, res) => {
-  res.send(todos);
 });
 
 app.get('/', (req, res) => {
