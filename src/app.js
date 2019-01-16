@@ -15,7 +15,14 @@ app.post('/todos', (req, res) => {
 });
 
 app.put('/todos/:id', (req, res) => {
-  todos[Number(req.params.id)] = req.body; res.sendStatus(200);
+  const todoFound = todos.filter(todo => (todo.id === req.params.id))[0];
+
+  if (todoFound) {
+    todoFound = {...todoFound, ...req.body};
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 app.get('/todos/:id', (req, res) => {
