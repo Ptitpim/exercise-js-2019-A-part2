@@ -19,7 +19,8 @@ app.put('/todos/:id', (req, res) => {
 });
 
 app.get('/todos/:id', (req, res) => {
-  res.send(todos[id]);
+  const todoFound = todos.filter(todo => (todo.id === req.params.id))[0];
+  res.send(todoFound ? todoFound : 'NOT FOUND');
 });
 
 app.get('/todos/all', (req, res) => {
